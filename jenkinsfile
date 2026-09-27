@@ -1,0 +1,45 @@
+pipeline{
+    agent any
+
+    environment {
+        IMAGE_NAME = "manojkrishnappa/GameAppDB:${GIT_COMMIT}"
+    }
+
+    stages{
+
+        stage('Git Checkout'){
+            steps{
+                git url: 'https://github.com/GameAppMicroservice/GameAppDB.git',branch: 'main'
+            }
+        }
+
+        stage('docker build'){
+            steps{
+                sh '''
+                    docker build -t ${IMAGE_NAME} .
+                '''
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-hub-creds',
+                    usernameVariable: 'DOCKER_USERNAME',
+                    passwordVariable: 'DOCKER_PASSWORD'
+                )]) {
+                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                }
+            }
+        }
+
+        stage('push to dockerhub'){
+            steps{
+                sh '''
+                    docker push ${IMAGE_NAME}
+                '''
+            }
+        }
+
+    }
+}
