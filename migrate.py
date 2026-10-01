@@ -5,12 +5,11 @@ from urllib.parse import quote
 import psycopg
 
 # Replace these placeholders with your Amazon RDS PostgreSQL connection values.
-RDS_HOST = 'your-instance.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com'
+RDS_HOST = 'database-1.c7me6e2egbky.ap-northeast-1.rds.amazonaws.com'
 RDS_PORT = 5432
-RDS_DATABASE = 'gameapp'
-RDS_USERNAME = 'gameapp_app'
-RDS_PASSWORD = 'replace-with-your-rds-password'
-RDS_SSLMODE = 'require'
+RDS_DATABASE = 'postgres'
+RDS_USERNAME = 'manoj'
+RDS_PASSWORD = 'Manoj1234'
 CONNECT_ATTEMPTS = 12
 
 
